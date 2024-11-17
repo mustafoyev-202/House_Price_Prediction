@@ -10,7 +10,7 @@ __model = None
 def get_estimated_price(location, sqft, bhk, bath):
     try:
         loc_index = __data_columns.index(location.lower())
-    except:
+    except ValueError:
         loc_index = -1
 
     x = np.zeros(len(__data_columns))
@@ -24,7 +24,7 @@ def get_estimated_price(location, sqft, bhk, bath):
 
 
 def load_saved_artifacts():
-    print("loading saved artifacts...start")
+    print("Loading saved artifacts...start")
     global __data_columns
     global __locations
 
@@ -36,7 +36,7 @@ def load_saved_artifacts():
     if __model is None:
         with open('./artifacts/banglore_home_prices_model.pickle', 'rb') as f:
             __model = pickle.load(f)
-    print("loading saved artifacts...done")
+    print("Loading saved artifacts...done")
 
 
 def get_location_names():

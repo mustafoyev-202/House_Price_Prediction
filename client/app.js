@@ -26,8 +26,7 @@ function onClickedEstimatePrice() {
     var location = document.getElementById("uiLocations").value;
     var estPrice = document.getElementById("uiEstimatedPrice");
 
-    // Use the appropriate URL based on your setup
-    var url = "/api/predict_home_price";
+    var url = "/predict_home_price";  // Match Flask endpoint
 
     $.post(url, {
         total_sqft: parseFloat(sqft),
@@ -36,12 +35,10 @@ function onClickedEstimatePrice() {
         location: location
     }, function (data, status) {
         if (status === "success") {
-            console.log(data.estimated_price);
             estPrice.innerHTML = "<h2>" + data.estimated_price.toString() + " Lakh</h2>";
         } else {
             estPrice.innerHTML = "<h2>Error in fetching the estimated price</h2>";
         }
-        console.log(status);
     }).fail(function () {
         estPrice.innerHTML = "<h2>Error in fetching the estimated price</h2>";
     });
@@ -49,11 +46,9 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
     console.log("document loaded");
-    // Use the appropriate URL based on your setup
-    var url = "/api/get_location_names";
+    var url = "/get_location_names";  // Match Flask endpoint
 
     $.get(url, function (data, status) {
-        console.log("got response for get_location_names request");
         if (status === "success" && data) {
             var locations = data.locations;
             var uiLocations = document.getElementById("uiLocations");
